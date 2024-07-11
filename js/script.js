@@ -1,22 +1,19 @@
-// Get the g2sw-navgen element
+// Navbar generation code
 const navGenElement = document.querySelector('g2sw-navgen');
 
-// Define the navigation options
 const navOptions = [
-    {"displayName":"Home", "url":"https://example.com/home"},
-    {"displayName":"About", "url":"https://example.com/about"},
-    {"displayName":"Services", "url":"https://example.com/services"},
-    {"displayName":"Contact", "url":"https://example.com/contact"}
+    {"displayName":"Home", "url":"#home"},
+    {"displayName":"About", "url":"#about"},
+    {"displayName":"Services", "url":"#services"},
+    {"displayName":"Contact", "url":"#contact"}
 ];
 
-// Create the navbar container
 const navbar = document.createElement('nav');
 navbar.style.display = 'flex';
 navbar.style.justifyContent = 'space-around';
 navbar.style.backgroundColor = '#333';
 navbar.style.padding = '10px';
 
-// Iterate through the navigation options and create links
 navOptions.forEach(option => {
     const navItem = document.createElement('a');
     navItem.textContent = option.displayName;
@@ -27,7 +24,6 @@ navOptions.forEach(option => {
     navItem.style.borderRadius = '5px';
     navItem.style.transition = 'background-color 0.3s';
 
-    // Add hover effect
     navItem.addEventListener('mouseover', () => {
         navItem.style.backgroundColor = '#575757';
     });
@@ -38,5 +34,25 @@ navOptions.forEach(option => {
     navbar.appendChild(navItem);
 });
 
-// Append the navbar to the g2sw-navgen element
 navGenElement.appendChild(navbar);
+
+// Markdown content loading code
+const contentElement = document.getElementById('content');
+
+function loadContent() {
+    const hash = window.location.hash.substring(1);
+    const page = hash ? hash : 'home';
+    const url = `wiki/${page}.md`;
+
+    fetch(url)
+        .then(response => response.text())
+        .then(text => {
+            contentElement.innerHTML = marked(text);
+        })
+        .catch(error => {
+            contentElement.innerHTML = 'Page not found.';
+        });
+}
+
+window.addEventListener('hashchange', loadContent);
+window.addEventListener('load', loadContent);
