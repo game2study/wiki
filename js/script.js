@@ -36,10 +36,11 @@ navOptions.forEach(option => {
 
 navGenElement.appendChild(navbar);
 
-// Markdown content loading code
-const contentElement = document.getElementById('content');
+
 
 function loadContent() {
+    // Markdown content loading code
+    const contentElement = document.getElementById('content');
     const hash = window.location.hash.substring(1);
     const page = hash ? hash : 'home';
     const url = `wiki/${page}.md`;
