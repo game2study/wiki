@@ -1,9 +1,3 @@
-function loadContent() {
-}
-
-window.addEventListener('hashchange', loadContent);
-window.addEventListener('load', loadContent);
-
 // Navbar generation code
 const navGenElement = document.querySelector('g2sw-navgen');
 
@@ -41,3 +35,30 @@ navOptions.forEach(option => {
 });
 
 navGenElement.appendChild(navbar);
+
+// Markdown content loading code
+const contentElement = document.getElementById('content');
+
+function loadContent() {
+    const hash = window.location.hash.substring(1);
+    const page = hash ? hash : 'home';
+    const url = `wiki/${page}.md`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(text => {
+            contentElement.innerHTML = marked(text);
+        })
+        .catch(error => {
+            console.error('Error fetching the Markdown file:', error);
+            contentElement.innerHTML = 'Page not found.';
+        });
+}
+
+window.addEventListener('hashchange', loadContent);
+window.addEventListener('load', loadContent);
