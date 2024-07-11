@@ -1,3 +1,9 @@
+function loadContent() {
+}
+
+window.addEventListener('hashchange', loadContent);
+window.addEventListener('load', loadContent);
+
 // Navbar generation code
 const navGenElement = document.querySelector('g2sw-navgen');
 
@@ -35,25 +41,3 @@ navOptions.forEach(option => {
 });
 
 navGenElement.appendChild(navbar);
-
-
-
-function loadContent() {
-    // Markdown content loading code
-    const contentElement = document.getElementById('content');
-    const hash = window.location.hash.substring(1);
-    const page = hash ? hash : 'home';
-    const url = `wiki/${page}.md`;
-
-    fetch(url)
-        .then(response => response.text())
-        .then(text => {
-            contentElement.innerHTML = marked(text);
-        })
-        .catch(error => {
-            contentElement.innerHTML = 'Page not found.';
-        });
-}
-
-window.addEventListener('hashchange', loadContent);
-window.addEventListener('load', loadContent);
