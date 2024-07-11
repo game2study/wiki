@@ -102,7 +102,7 @@ saveButton.addEventListener('click', () => {
     const fileContent = markdownEditor.value;
     const filePath = `wiki/${page}.md`;
 
-    fetch('https://api.github.com/repos/your-username/your-repo/dispatches', {
+    fetch(`https://api.github.com/repos/game2study/wiki/dispatches`, {
         method: 'POST',
         headers: {
             'Authorization': `token ${GITHUB_TOKEN}`,
