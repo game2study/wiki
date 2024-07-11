@@ -2,6 +2,14 @@
 <html>
 
 <head>
+  <script type="module">
+      import 'https://raw.githubusercontent.com/PolymerElements/marked-element/master/marked-element.js';
+    </script>
+    <style>
+      [slot="markdown-html"] p {
+        color: red;
+      }
+    </style>
   <meta charset="utf-8">
   <title>Game2Study Wiki</title>
   <meta name="author" content="">
@@ -13,8 +21,9 @@
 
 <body>
 
-  <p>Hello, world!</p>
-
+  <g2sw-navgen></g2sw-navgen>
+  <main></main>
+  <marked-element>###They wanted heaven from me.<b>I gave em' hell/b></marked-element>
   <script src="js/script.js"></script>
 </body>
 
